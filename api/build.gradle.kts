@@ -8,6 +8,10 @@ plugins {
 
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     api(libs.guava)
     api(libs.jedis)
@@ -19,6 +23,9 @@ dependencies {
     api(libs.adventure.legacy)
     api(libs.adventure.plain)
     api(libs.adventure.miniMessage)
+    compileOnly("eu.cloudnetservice.cloudnet:bridge:4.0.0-RC10")
+    compileOnly("eu.cloudnetservice.cloudnet:wrapper-jvm:4.0.0-RC10")
+    compileOnly("eu.cloudnetservice.cloudnet:platform-inject-api:4.0.0-RC10")
 }
 
 description = "RedisBungee interfaces"

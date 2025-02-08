@@ -18,6 +18,9 @@ import com.imaginarycode.minecraft.redisbungee.api.config.RedisBungeeConfigurati
 import com.imaginarycode.minecraft.redisbungee.api.summoners.JedisClusterSummoner;
 import com.imaginarycode.minecraft.redisbungee.api.summoners.JedisPooledSummoner;
 import com.imaginarycode.minecraft.redisbungee.api.summoners.Summoner;
+import eu.cloudnetservice.driver.inject.InjectionLayer;
+import eu.cloudnetservice.modules.bridge.BridgeServiceHelper;
+import eu.cloudnetservice.wrapper.configuration.WrapperConfiguration;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import ninja.leaping.configurate.yaml.YAMLConfigurationLoader;
@@ -70,6 +73,14 @@ public interface ConfigLoader extends GenericConfigLoader {
         if (proxyIdFromEnv != null) {
             plugin.logInfo("Overriding current configured proxy id {} and been set to {} by Environment variable REDISBUNGEE_PROXY_ID", proxyId, proxyIdFromEnv);
             proxyId = proxyIdFromEnv;
+        } else {
+
+            String cloudNetServiceId = getServiceIdFromCloudNet();
+            if (cloudNetServiceId != null) {
+                plugin.logInfo("Overriding current configured proxy id {} and been set to {} by CloudNet", proxyId, cloudNetServiceId);
+                proxyId = cloudNetServiceId;
+            }
+
         }
 
         String networkIdFromEnv = System.getenv("REDISBUNGEE_NETWORK_ID");
@@ -190,5 +201,25 @@ public interface ConfigLoader extends GenericConfigLoader {
 
     void onConfigLoad(RedisBungeeConfiguration configuration, Summoner<?> summoner, RedisBungeeMode mode);
 
+    static String getServiceIdFromCloudNet() {
+
+        try {
+
+            try {
+                Class.forName("eu.cloudnetservice.driver.inject.InjectionLayer");
+                Class.forName("eu.cloudnetservice.modules.bridge.BridgeServiceHelper");
+
+                WrapperConfiguration wrapperConfiguration = InjectionLayer.ext().instance(WrapperConfiguration.class);
+                return wrapperConfiguration.serviceInfoSnapshot().name();
+            } catch (ClassNotFoundException ignored) {
+                return null;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 
 }

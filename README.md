@@ -1,5 +1,8 @@
 # RedisBungee Limework's Fork
 
+**This is a fork from Limework's Fork which integrates CloudNet for setting the proxyId. If you don't use CloudNet, don't use this version.**  
+Build with `./gradlew clean shadowJar`
+
 The original project of RedisBungee is no longer maintained, so we have forked the plugin.
 RedisBungee uses [Redis](https://redis.io) with Java client [Jedis](https://github.com/redis/jedis/)
 to Synchronize players data between [BungeeCord](https://github.com/SpigotMC/BungeeCord)
