@@ -23,9 +23,9 @@ dependencies {
     api(libs.adventure.legacy)
     api(libs.adventure.plain)
     api(libs.adventure.miniMessage)
-    compileOnly("eu.cloudnetservice.cloudnet:bridge:4.0.0-RC10")
-    compileOnly("eu.cloudnetservice.cloudnet:wrapper-jvm:4.0.0-RC10")
-    compileOnly("eu.cloudnetservice.cloudnet:platform-inject-api:4.0.0-RC10")
+    compileOnly("eu.cloudnetservice.cloudnet:bridge-api:4.0.0-RC12")
+    compileOnly("eu.cloudnetservice.cloudnet:wrapper-jvm-api:4.0.0-RC12")
+    compileOnly("eu.cloudnetservice.cloudnet:platform-inject-api:4.0.0-RC12")
 }
 
 description = "RedisBungee interfaces"
@@ -48,6 +48,9 @@ blossom {
 java {
     withJavadocJar()
     withSourcesJar()
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(24))
+    }
 }
 
 tasks {
@@ -73,7 +76,7 @@ tasks {
 
     compileJava {
         options.encoding = Charsets.UTF_8.name()
-        options.release.set(17)
+        options.release.set(24)
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name()

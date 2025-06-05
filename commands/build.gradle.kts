@@ -9,11 +9,16 @@ dependencies {
 
 description = "RedisBungee common commands"
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(24))
+    }
+}
 
 tasks {
     compileJava {
         options.encoding = Charsets.UTF_8.name()
-        options.release.set(17)
+        options.release.set(24)
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name()

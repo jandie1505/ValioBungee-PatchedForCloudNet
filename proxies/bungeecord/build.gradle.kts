@@ -1,6 +1,6 @@
 plugins {
     java
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.gradleup.shadow") version "8.3.5"
     id("xyz.jpenilla.run-waterfall") version "2.0.0"
 }
 
@@ -21,6 +21,9 @@ description = "RedisBungee Bungeecord implementation"
 
 java {
     withSourcesJar()
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(24))
+    }
 }
 
 tasks {
@@ -31,7 +34,7 @@ tasks {
     }
     compileJava {
         options.encoding = Charsets.UTF_8.name()
-        options.release.set(17)
+        options.release.set(24)
     }
     processResources {
         filteringCharset = Charsets.UTF_8.name()
